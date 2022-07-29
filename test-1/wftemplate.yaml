@@ -41,6 +41,8 @@ spec:
       name: main
       image: 'hashicorp/terraform:1.2.6'
       command:
+      - terraform
+      args:
       - version
       resources: {}
   ttlStrategy:
