@@ -9,7 +9,7 @@ spec:
   entrypoint: tf-run
   arguments:
     parameters:
-    - name: wf-parameters
+    - name: wf-configmap-name
       value: wf-defaults-cm
   templates:
   - name: tf-run
@@ -18,17 +18,17 @@ spec:
       - name: git-url
         valueFrom:
           configMapKeyRef:
-            name: wf-parameters
+            name: '{{workflow.parameters.wf-configmap-name}}'
             key: tf-git-url
       - name: git-revision
         valueFrom:
           configMapKeyRef:
-            name: wf-parameters
+            name: '{{workflow.parameters.wf-configmap-name}}'
             key: tf-git-revision
       - name: git-path
         valueFrom:
           configMapKeyRef:
-            name: wf-parameters
+            name: '{{workflow.parameters.wf-configmap-name}}'
             key: tf-git-path
       artifacts:
         - name: git-repo
