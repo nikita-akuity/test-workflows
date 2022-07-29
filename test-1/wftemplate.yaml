@@ -25,11 +25,6 @@ spec:
           configMapKeyRef:
             name: '{{workflow.parameters.wf-configmap-name}}'
             key: tf-git-revision
-      - name: git-path
-        valueFrom:
-          configMapKeyRef:
-            name: '{{workflow.parameters.wf-configmap-name}}'
-            key: tf-git-path
       artifacts:
         - name: git-repo
           path: /src
