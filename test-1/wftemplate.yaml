@@ -34,7 +34,7 @@ spec:
     metadata: {}
     containerSet:
       containers:
-      - name: init
+      - name: tf-init
         image: 'hashicorp/terraform:1.2.6'
         workingDir: /src/test-1/tf
         command:
@@ -43,7 +43,7 @@ spec:
         - init
         resources: {}
       - name: main
-        dependencies: ["init"]
+        dependencies: ["tf-init"]
         image: 'hashicorp/terraform:1.2.6'
         workingDir: /src/test-1/tf
         command:
