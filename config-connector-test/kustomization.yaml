@@ -1,0 +1,13 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+- disk-1.yaml
+- disk-2.yaml
+- encryption-key.yaml
+- iam-sa.yaml
+- namespace.yaml
+- network.yaml
+- subnetwork.yaml
+- vm.yaml
+
+namespace: gcp-resources
