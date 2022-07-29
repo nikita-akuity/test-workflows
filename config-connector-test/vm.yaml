@@ -58,7 +58,7 @@
     - key: bar
       value: baz
     scheduling:
-      provisioningModel: SPOT
+      preemptible: true
       automaticRestart: false
       onHostMaintenance: TERMINATE
     serviceAccount:
