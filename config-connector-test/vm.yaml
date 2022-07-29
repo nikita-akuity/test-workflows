@@ -51,6 +51,16 @@
         mode: READ_WRITE
         deviceName: persistentdisk
     minCpuPlatform: "Intel Skylake"
+    metadataStartupScript: "echo hi > /test.txt"
+    metadata:
+    - key: foo
+      value: bar
+    - key: bar
+      value: baz
+    scheduling:
+      provisioningModel: SPOT
+      automaticRestart: false
+      onHostMaintenance: TERMINATE
     serviceAccount:
       serviceAccountRef:
         name: inst-dep-cloudmachine
