@@ -6,6 +6,7 @@ metadata:
   labels:
     example: 'true'
 spec:
+  serviceAccountName: executor
   entrypoint: tf-run
   arguments:
     parameters:
@@ -32,25 +33,17 @@ spec:
             repo: '{{inputs.parameters.git-url}}'
             revision: '{{inputs.parameters.git-revision}}'
     metadata: {}
-    containerSet:
-      containers:
-      - name: tf-init
-        image: 'hashicorp/terraform:1.2.6'
-        workingDir: /src/test-1/tf
-        command:
-        - terraform
-        args:
-        - init
-        resources: {}
-      - name: main
-        dependencies: ["tf-init"]
-        image: 'hashicorp/terraform:1.2.6'
-        workingDir: /src/test-1/tf
-        command:
-        - terraform
-        args:
-        - plan
-        resources: {}
+    script:
+      name: tf-run
+      image: 'hashicorp/terraform:1.2.6'
+      workingDir: /src/test-1/tf
+      command:
+      - sh
+      source: |
+        terraform init &&
+        terraform plan -var-file=test.tfvars &&
+        terraform apply -auto-approve -var-file=test.tfvars
+      resources: {}
   ttlStrategy:
     secondsAfterCompletion: 300
   podGC:
