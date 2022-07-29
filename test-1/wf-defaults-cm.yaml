@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: wf-defaults-cm
+  labels:
+    workflows.argoproj.io/configmap-type: Parameter
+data:
+  tf-git-url: 'https://github.com/nikita-akuity/test-workflows.git'
+  tf-git-revision: 'main'
+  tf-git-path: 'test-1'

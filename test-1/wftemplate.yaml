@@ -1,0 +1,50 @@
+apiVersion: argoproj.io/v1alpha1
+kind: WorkflowTemplate
+metadata:
+  name: test-terraform
+  namespace: wf
+  labels:
+    example: 'true'
+spec:
+  entrypoint: tf-run
+  arguments:
+    parameters:
+    - name: wf-parameters
+      value: wf-defaults-cm
+  templates:
+  - name: tf-run
+    inputs:
+      parameters:
+      artifacts:
+        - name: git-repo
+          path:
+            valueFrom:
+              configMapKeyRef:
+                name: wf-parameters
+                key: tf-git-path
+          git:
+            repo:
+              valueFrom:
+                configMapKeyRef:
+                  name: wf-parameters
+                  key: tf-git-url
+            revision:
+              valueFrom:
+                configMapKeyRef:
+                  name: wf-parameters
+                  key: tf-git-revision
+    outputs: {}
+    metadata: {}
+    container:
+      name: main
+      image: 'hashicorp/terraform:1.2.6'
+      command:
+      - version
+      resources: {}
+  ttlStrategy:
+    secondsAfterCompletion: 300
+  podGC:
+    strategy: OnWorkflowSuccess
+  workflowMetadata:
+    labels:
+      example: 'true'
