@@ -15,25 +15,27 @@ spec:
   - name: tf-run
     inputs:
       parameters:
+      - name: git-url
+        valueFrom:
+          configMapKeyRef:
+            name: wf-parameters
+            key: tf-git-url
+      - name: git-revision
+        valueFrom:
+          configMapKeyRef:
+            name: wf-parameters
+            key: tf-git-revision
+      - name: git-path
+        valueFrom:
+          configMapKeyRef:
+            name: wf-parameters
+            key: tf-git-path
       artifacts:
         - name: git-repo
-          path:
-            valueFrom:
-              configMapKeyRef:
-                name: wf-parameters
-                key: tf-git-path
+          path: '{{inputs.parameters.git-path}}'
           git:
-            repo:
-              valueFrom:
-                configMapKeyRef:
-                  name: wf-parameters
-                  key: tf-git-url
-            revision:
-              valueFrom:
-                configMapKeyRef:
-                  name: wf-parameters
-                  key: tf-git-revision
-    outputs: {}
+            repo: '{{inputs.parameters.git-url}}'
+            revision: '{{inputs.parameters.git-revision}}'
     metadata: {}
     container:
       name: main
