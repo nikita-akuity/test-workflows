@@ -47,7 +47,8 @@ spec:
         args:
         - init
         resources: {}
-      - name: plan
+      - name: main
+        dependencies: ["init"]
         image: 'hashicorp/terraform:1.2.6'
         workingDir: /src/test-1/tf
         command:
