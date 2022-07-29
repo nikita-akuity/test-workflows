@@ -32,19 +32,29 @@ spec:
             key: tf-git-path
       artifacts:
         - name: git-repo
-          path: '{{inputs.parameters.git-path}}'
+          path: /src
           git:
             repo: '{{inputs.parameters.git-url}}'
             revision: '{{inputs.parameters.git-revision}}'
     metadata: {}
-    container:
-      name: main
-      image: 'hashicorp/terraform:1.2.6'
-      command:
-      - terraform
-      args:
-      - version
-      resources: {}
+    containerSet:
+      containers:
+      - name: init
+        image: 'hashicorp/terraform:1.2.6'
+        workingDir: /src/test-1/tf
+        command:
+        - terraform
+        args:
+        - init
+        resources: {}
+      - name: plan
+        image: 'hashicorp/terraform:1.2.6'
+        workingDir: /src/test-1/tf
+        command:
+        - terraform
+        args:
+        - plan
+        resources: {}
   ttlStrategy:
     secondsAfterCompletion: 300
   podGC:

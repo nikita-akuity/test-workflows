@@ -7,4 +7,3 @@ metadata:
 data:
   tf-git-url: 'https://github.com/nikita-akuity/test-workflows.git'
   tf-git-revision: 'main'
-  tf-git-path: 'test-1'
