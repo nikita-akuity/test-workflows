@@ -12,10 +12,14 @@ spec:
     parameters:
     - name: wf-configmap-name
       value: wf-defaults-cm
+    - name: terraform-command
+      value: plan
   templates:
   - name: tf-run
     inputs:
       parameters:
+      - name: command
+        value: '{{workflow.parameters.terraform-command}}'
       - name: git-url
         valueFrom:
           configMapKeyRef:
@@ -41,8 +45,7 @@ spec:
       - sh
       source: |
         terraform init &&
-        terraform plan -var-file=test.tfvars &&
-        terraform apply -auto-approve -var-file=test.tfvars
+        terraform {{inputs.parameters.command}} -var-file=test.tfvars
       resources: {}
   ttlStrategy:
     secondsAfterCompletion: 300
