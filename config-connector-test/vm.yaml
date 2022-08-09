@@ -29,7 +29,7 @@
         size: 24
         type: pd-ssd
         sourceImageRef:
-          external: debian-cloud/debian-9
+          external: centos-cloud/centos-7
     networkInterface:
       - subnetworkRef:
           name: computeinstance-dep-cloudmachine
@@ -51,7 +51,7 @@
         mode: READ_WRITE
         deviceName: persistentdisk
     minCpuPlatform: "Intel Skylake"
-    metadataStartupScript: "echo hi > /test.txt"
+    metadataStartupScript: "hi > /test.txt"
     metadata:
     - key: foo
       value: bar
