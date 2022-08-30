@@ -19,6 +19,12 @@ spec:
         repoURL: 'https://charts.akuity.io'
         targetRevision: 1.2.0
         chart: argo-workflows
+        helm:
+          parameters:
+          - name: server.ingress.enabled
+            value: 'true'
+          - name: server.ingress.host
+            value: argo-workflows-test.gcp.akuity.local
       project: default
       syncPolicy:
         syncOptions:
