@@ -30,6 +30,11 @@ spec:
           configMapKeyRef:
             name: '{{workflow.parameters.wf-configmap-name}}'
             key: tf-git-revision
+      - name: tf-dir
+        valueFrom:
+          configMapKeyRef:
+            name: '{{workflow.parameters.wf-configmap-name}}'
+            key: tf-git-dir
       artifacts:
         - name: git-repo
           path: /src
@@ -40,7 +45,7 @@ spec:
     script:
       name: tf-run
       image: 'hashicorp/terraform:1.2.6'
-      workingDir: /src/test-1/tf
+      workingDir: '/src/{{inputs.parameters.tf-dir}}'
       command:
       - sh
       source: |

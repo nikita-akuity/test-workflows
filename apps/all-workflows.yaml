@@ -1,0 +1,32 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: all-workflows
+spec:
+  generators:
+  - matrix:
+      generators:
+      - clusters:
+          selector:
+            matchLabels:
+              workflows: 'enabled'
+      - git:
+          repoURL: https://github.com/nikita-akuity/test-workflows.git
+          revision: HEAD
+          directories:
+          - path: terraform-example/*
+  template:
+    metadata:
+      name: 'tf-{{path.basename}}-{{name}}'
+    spec:
+      destination:
+        namespace: wf
+        server: '{{server}}'
+      source:
+        repoURL: https://github.com/nikita-akuity/test-workflows.git
+        targetRevision: HEAD
+        path: '{{path}}'
+      project: default
+      syncPolicy:
+        syncOptions:
+          - CreateNamespace=true
