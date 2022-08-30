@@ -1,0 +1,25 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: argo-workflows-all
+spec:
+  generators:
+  - clusters:
+      selector:
+        matchLabels:
+          workflows: 'enabled'
+  template:
+    metadata:
+      name: 'argo-workflows-{{name}}'
+    spec:
+      destination:
+        namespace: argo-workflows
+        server: '{{server}}'
+      source:
+        repoURL: 'https://charts.akuity.io'
+        targetRevision: 1.2.0
+        chart: argo-workflows
+      project: default
+      syncPolicy:
+        syncOptions:
+          - CreateNamespace=true
