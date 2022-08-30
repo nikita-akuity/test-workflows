@@ -20,13 +20,16 @@ spec:
         targetRevision: 1.2.0
         chart: argo-workflows
         helm:
-          parameters:
-          - name: server.ingress.enabled
-            value: 'true'
-          - name: server.ingress.host
-            value: argo-workflows-test.gcp.akuity.local
-          - name: server.ingress.tls.enabled
-            value: 'true'
+          values: |
+            server:
+              secure: false
+              ingress:
+                enabled: true
+                host: argo-workflows-test.gcp.akuity.local
+                annotations:
+                  kubernetes.io/ingress.class: gce
+                tls:
+                  enabled: false
       project: default
       syncPolicy:
         syncOptions:
