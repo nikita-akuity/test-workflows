@@ -1,0 +1,9 @@
+server:
+  secure: false
+  ingress:
+    enabled: true
+    host: argo-workflows-test.gcp.akuity.local
+    annotations:
+      kubernetes.io/ingress.class: gce
+    tls:
+      enabled: false
