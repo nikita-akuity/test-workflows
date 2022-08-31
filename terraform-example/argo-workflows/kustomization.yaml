@@ -8,3 +8,8 @@ helmCharts:
   namespace: argo
   version: 1.2.0
   valuesFile: values.yaml
+
+resources:
+- namespace.yaml
+
+namespace: argo
