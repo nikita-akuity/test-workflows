@@ -1,0 +1,32 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: all-cnrms
+spec:
+  generators:
+  - matrix:
+      generators:
+      - clusters:
+          selector:
+            matchLabels:
+              cnrm: 'enabled'
+      - git:
+          repoURL: https://github.com/nikita-akuity/test-workflows.git
+          revision: HEAD
+          directories:
+          - path: cnrm-example/*
+  template:
+    metadata:
+      name: 'gcp-{{path.basename}}-{{name}}'
+    spec:
+      destination:
+        namespace: whatever
+        server: '{{server}}'
+      source:
+        repoURL: https://github.com/nikita-akuity/test-workflows.git
+        targetRevision: HEAD
+        path: '{{path}}'
+      project: default
+      syncPolicy:
+        syncOptions:
+          - CreateNamespace=true
