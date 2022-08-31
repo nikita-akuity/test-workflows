@@ -17,7 +17,7 @@
   metadata:
     annotations:
       cnrm.cloud.google.com/allow-stopping-for-update: "true"
-    name: computeinstance-sample-cloudmachine
+    name: sample-vm
     labels:
       created-from: "image"
       network-type: "subnetwork"
@@ -32,26 +32,26 @@
           external: centos-cloud/centos-7
     networkInterface:
       - subnetworkRef:
-          name: computeinstance-dep-cloudmachine
+          name: sample-subnet
         aliasIpRange:
           - ipCidrRange: /24
             subnetworkRangeName: cloudrange
     attachedDisk:
       - sourceDiskRef:
-          name: computeinstance-dep1-cloudmachine
+          name: sample-disk-1
         mode: READ_ONLY
         deviceName: proxycontroldisk
         diskEncryptionKeyRaw:
           valueFrom:
             secretKeyRef:
-              name: computeinstance-dep-cloudmachine
+              name: sample-encryption-key
               key: diskEncryptionKey
       - sourceDiskRef:
-          name: computeinstance-dep2-cloudmachine
+          name: sample-disk-2
         mode: READ_WRITE
         deviceName: persistentdisk
     minCpuPlatform: "Intel Skylake"
-    metadataStartupScript: "hi > /test.txt"
+    metadataStartupScript: "hello > /test.txt"
     metadata:
     - key: foo
       value: bar
@@ -63,7 +63,7 @@
       onHostMaintenance: TERMINATE
     serviceAccount:
       serviceAccountRef:
-        name: inst-dep-cloudmachine
+        name: sample-serviceaccount
       scopes:
       - compute-rw
       - logging-write

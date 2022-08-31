@@ -1,7 +1,7 @@
   apiVersion: compute.cnrm.cloud.google.com/v1beta1
   kind: ComputeNetwork
   metadata:
-    name: computeinstance-dep-cloudmachine
+    name: sample-vpc
   spec:
     routingMode: REGIONAL
     autoCreateSubnetworks: false
