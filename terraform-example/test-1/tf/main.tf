@@ -33,7 +33,7 @@ module "vm_instance_template" {
   version         = "7.8.0"
   region          = var.region
   project_id      = var.project_id
-  subnetwork      = module.vpc.subnets["us-west1/subnet-01"].self_link
+  subnetwork      = module.vpc.subnets["us-central1/subnet-01"].self_link
   service_account = {
     email = google_service_account.test.email
     scopes = ["compute-rw", "logging-write"]
@@ -45,7 +45,7 @@ module "vm_compute_instance" {
   version             = "7.8.0"
   region              = var.region
   zone                = var.zone
-  subnetwork          = module.vpc.subnets["us-west1/subnet-01"].self_link
+  subnetwork          = module.vpc.subnets["us-central1/subnet-01"].self_link
   num_instances       = 1
   hostname            = "instance-simple"
   instance_template   = module.vm_instance_template.self_link
